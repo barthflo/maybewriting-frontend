@@ -9,7 +9,7 @@ import Script from 'next/script'
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-27E67PGYZZ" />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-8D2TPDM0BY" />
       <Script
         id="ga-script"
         async
@@ -18,7 +18,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'G-27E67PGYZZ');`
+              gtag('config', 'G-8D2TPDM0BY');`
         }}
       />
       <ThemeProvider theme={theme}>
