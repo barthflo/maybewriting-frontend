@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
 import { GiFeather } from 'react-icons/gi';
 
 const Header: React.FC = () => {
+	const [open, setOpen] = useState<boolean>(false)
+
 	return (
 		<Container>
 			<div style={{ position: 'relative' }}>
@@ -13,7 +15,10 @@ const Header: React.FC = () => {
 				</h1>
 			</div>
 			<SubTitle> - street writing -</SubTitle>
-			<Nav />
+			<BurgerContainer onClick={() => setOpen(!open)}>
+				<BurgerIcon open={open} />
+			</BurgerContainer>
+			<Nav open={open} />
 		</Container>
 	);
 };
@@ -79,4 +84,48 @@ const FeatherIcon = styled(GiFeather)`
 const SubTitle = styled.span`
 	font-family: ${(props) => props.theme.text.siteSubtitle};
 	margin-bottom: 6px;
+`;
+
+const BurgerContainer = styled.div`
+	position: fixed;
+	top: 40px;
+	right: 20px;
+	cursor: pointer;
+	height: 25px;
+	z-index: 1;
+	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
+		display: none;
+	}
+`;
+const BurgerIcon = styled.span<{ open: boolean }>`
+	height: 2px;
+	width: ${(props) => (props.open ? '20px' : '25px')};
+	background: ${(props) => props.theme.palette.light.primary};
+	display: block;
+	transform: ${(props) =>
+		props.open ? 'translateY(4px) rotateZ(45deg)' : 'rotateZ(0deg)'};
+	transition: 0.4s ease-in-out;
+	&:before {
+		content: '';
+		display: block;
+		height: 2px;
+		width: ${(props) => (props.open ? '20px' : '25px')};
+		position: relative;
+		top: 6px;
+		background: ${(props) => props.theme.palette.light.primary};
+		opacity: ${(props) => (props.open ? '0' : '1')};
+		transition: 0.4s ease-in-out;
+	}
+	&:after {
+		content: '';
+		display: block;
+		height: 2px;
+		width: ${(props) => (props.open ? '20px' : '25px')};
+		position: relative;
+		top: 11px;
+		background: ${(props) => props.theme.palette.light.primary};
+		transform: ${(props) =>
+		props.open ? 'translateY(-13px) rotateZ(90deg)' : 'rotateZ(0deg)'};
+		transition: 0.4s ease-in-out;
+	}
 `;

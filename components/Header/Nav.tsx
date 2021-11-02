@@ -52,9 +52,8 @@ const menu: MenuItem[] = [
 	},
 ];
 
-const Nav: React.FC = () => {
+const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
-	const [open, setOpen] = useState<boolean>(false);
 	const { asPath } = useRouter();
 	const theme = useTheme();
 
@@ -75,9 +74,6 @@ const Nav: React.FC = () => {
 
 	return (
 		<NavContainer open={open}>
-			<BurgerContainer onClick={() => setOpen(!open)}>
-				<BurgerIcon open={open} />
-			</BurgerContainer>
 			<FeatherIcon color={theme.palette.light.primary} size="3em" />
 			<NavBar borderBottom={!showDropDown && '20px solid'}>
 				{menu.map((item, index) => {
