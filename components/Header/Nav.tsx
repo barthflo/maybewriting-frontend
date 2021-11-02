@@ -164,10 +164,9 @@ const NavContainer = styled.nav<{ open: boolean }>`
 	overflow: scroll;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		overflow: unset;
+		height: unset;
 		padding: 0;
-		position: relative;
-		top: 15px;
-		right: unset;
+		position: initial;
 		width: ${(props) => props.theme.breakpoints.md};
 		background: transparent;
 	}
@@ -220,7 +219,7 @@ const BurgerIcon = styled.span<{ open: boolean }>`
 		top: 11px;
 		background: ${(props) => props.theme.palette.light.primary};
 		transform: ${(props) =>
-			props.open ? 'translateY(-13px) rotateZ(90deg)' : 'rotateZ(0deg)'};
+		props.open ? 'translateY(-13px) rotateZ(90deg)' : 'rotateZ(0deg)'};
 		transition: 0.4s ease-in-out;
 	}
 `;
@@ -237,8 +236,9 @@ const NavBar = styled.ul<{ borderBottom: string }>`
 	height: 50%;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		flex-direction: row;
-		align-items: end;
+		align-items: flex-end;
 		border-bottom: ${(props) => props.borderBottom};
+		height: unset;
 	} ;
 `;
 

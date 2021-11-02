@@ -35,7 +35,7 @@ const Container = styled.header`
 		margin: 0;
 		font-family: ${(props) => props.theme.text.siteTitle};
 		font-weight: 400;
-		font-size: 35px;
+		font-size: 40px;
 		& > span {
 			color: #de0606;
 		}
@@ -48,9 +48,11 @@ const Container = styled.header`
 		}
 	}
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
-		height: 159px;
+		height: 178px;
 		align-items: center;
+		justify-content: space-evenly;
 		line-height: unset;
+		padding-bottom: 0;
 		& h1 {
 			font-size: 45px;
 		}
@@ -68,9 +70,9 @@ const FeatherIcon = styled(GiFeather)`
 		right: -38px;
 	}
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
-		width: 4em;
+		width: 3.5em;
 		top: -15px;
-		right: -50px;
+		right: -45px;
 	}
 `;
 
