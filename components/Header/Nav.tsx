@@ -169,54 +169,14 @@ const NavContainer = styled.nav<{ open: boolean }>`
 	@media (min-width: ${(props) => props.theme.breakpoints.lg}) {
 		width: ${(props) => props.theme.breakpoints.lg};
 	}
+	@media (min-width: ${(props) => props.theme.breakpoints.xlg}) {
+		width: ${(props) => props.theme.breakpoints.xlg};
+	}
 `;
 const FeatherIcon = styled(GiFeather)`
 	margin-bottom: 60px;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		display: none;
-	}
-`;
-
-const BurgerContainer = styled.div`
-	position: fixed;
-	top: 40px;
-	right: 20px;
-	cursor: pointer;
-	height: 25px;
-	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
-		display: none;
-	}
-`;
-const BurgerIcon = styled.span<{ open: boolean }>`
-	height: 2px;
-	width: ${(props) => (props.open ? '20px' : '25px')};
-	background: ${(props) => props.theme.palette.light.primary};
-	display: block;
-	transform: ${(props) =>
-		props.open ? 'translateY(4px) rotateZ(45deg)' : 'rotateZ(0deg)'};
-	transition: 0.4s ease-in-out;
-	&:before {
-		content: '';
-		display: block;
-		height: 2px;
-		width: ${(props) => (props.open ? '20px' : '25px')};
-		position: relative;
-		top: 6px;
-		background: ${(props) => props.theme.palette.light.primary};
-		opacity: ${(props) => (props.open ? '0' : '1')};
-		transition: 0.4s ease-in-out;
-	}
-	&:after {
-		content: '';
-		display: block;
-		height: 2px;
-		width: ${(props) => (props.open ? '20px' : '25px')};
-		position: relative;
-		top: 11px;
-		background: ${(props) => props.theme.palette.light.primary};
-		transform: ${(props) =>
-		props.open ? 'translateY(-13px) rotateZ(90deg)' : 'rotateZ(0deg)'};
-		transition: 0.4s ease-in-out;
 	}
 `;
 

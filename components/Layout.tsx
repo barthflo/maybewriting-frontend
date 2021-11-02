@@ -31,4 +31,7 @@ const PageContainer = styled.main`
 	@media (min-width: ${(props) => props.theme.breakpoints.lg}) {
 		width: ${(props) => props.theme.breakpoints.lg};
 	}
+	@media (min-width: ${(props) => props.theme.breakpoints.xlg}) {
+		width: ${(props) => props.theme.breakpoints.xlg};
+	}
 `;
