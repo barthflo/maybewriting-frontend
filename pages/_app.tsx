@@ -1,6 +1,6 @@
 import '../styles/globals.css'
-import App, { AppContext } from 'next/app'
-import React, { createContext, useContext } from 'react'
+import App, { AppContext, AppProps } from 'next/app'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import { ThemeProvider } from 'styled-components'
 import { theme } from '../styles/theme'
@@ -27,25 +27,26 @@ export type Settings = {
   menu: Menu
 }
 
-type AppProps = {
-  pageProps: {
-    settings: Settings
-  }
-}
-
-interface InitialProps extends AppProps {
-  Component: any,
-}
-
 export const GlobalContext = createContext<Settings | null>(null)
 
 export const useGlobal = () => {
   return useContext(GlobalContext)
 }
 
-const MyApp = ({ Component, pageProps }: InitialProps) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
 
-  const { settings } = pageProps
+  const [settings, setSettings] = useState<Settings | undefined>()
+
+  const getSettings = useCallback(async () => {
+    const response = await fetchApi('/settings')
+    setSettings(response)
+  }, [])
+
+  useEffect(() => {
+    getSettings()
+  }, [getSettings])
+
+  if (!settings) return 'Loading'
 
   return (
     <>
@@ -73,14 +74,14 @@ const MyApp = ({ Component, pageProps }: InitialProps) => {
 }
 
 
-MyApp.getInitialProps = async (ctx: AppContext): Promise<AppProps> => {
-  const appProps = await App.getInitialProps(ctx);
-  const settings = await fetchApi('/settings')
-  console.log(settings)
-  return {
-    ...appProps, pageProps: { settings }
-  }
-}
+// MyApp.getInitialProps = async (ctx: AppContext): Promise<AppProps> => {
+//   const appProps = await App.getInitialProps(ctx);
+//   const settings = await fetchApi('/settings')
+//   console.log(settings)
+//   return {
+//     ...appProps, pageProps: { settings }
+//   }
+// }
 
 export default MyApp
 
