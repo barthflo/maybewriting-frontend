@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
 import { GiFeather } from 'react-icons/gi';
+import { useGlobal } from '../../pages/_app'
 
 const Header: React.FC = () => {
 	const [open, setOpen] = useState<boolean>(false)
-
+	const { site_title, site_subtitle } = useGlobal()
 	return (
 		<Container>
 			<div style={{ position: 'relative' }}>
 				<FeatherIcon size="4em" />
 				<h1>
-					may<span>be</span>writing...
+					{site_title.substring(0, 3)}<span>{site_title.substring(3, 5)}</span>{site_title.substring(5)}
 				</h1>
 			</div>
-			<SubTitle> - street writing -</SubTitle>
+			<SubTitle>{site_subtitle}</SubTitle>
 			<BurgerContainer onClick={() => setOpen(!open)}>
 				<BurgerIcon open={open} />
 			</BurgerContainer>

@@ -5,59 +5,19 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useTheme } from '../../styles/theme';
 import { GiFeather } from 'react-icons/gi';
+import { useGlobal, MenuItem } from '../../pages/_app';
 
-type MenuItem = {
-	name: string;
-	path?: string;
-	submenu?: {
-		name: string;
-		path: string;
-		active?: boolean;
-	}[];
-	active?: boolean;
-};
-
-const menu: MenuItem[] = [
-	{
-		name: 'home',
-		path: '/',
-	},
-	{
-		name: 'what i write',
-		path: '/what-i-write',
-	},
-	{
-		name: 'litterature',
-		path: '/litterature',
-	},
-	{
-		name: 'music',
-		path: '/music',
-	},
-	{
-		name: 'movies',
-		path: '/movies',
-	},
-	{
-		name: 'miscellaneous',
-		path: '/miscellaneous',
-	},
-	{
-		name: 'a space for you',
-		path: '/a-space-for-you',
-	},
-	{
-		name: 'about',
-		path: '/about',
-	},
-];
 
 const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const { asPath } = useRouter();
 	const theme = useTheme();
+	const { menu: { menu_item } } = useGlobal()
+
+	console.log(asPath)
 
 	const setActiveItem = (item: MenuItem): boolean => {
+		console.log(item)
 		if (asPath.includes(item.name) || asPath === item.path) {
 			return (item.active = true);
 		}
@@ -76,7 +36,7 @@ const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 		<NavContainer open={open}>
 			<FeatherIcon color={theme.palette.light.primary} size="3em" />
 			<NavBar borderBottom={!showDropDown && '20px solid'}>
-				{menu.map((item, index) => {
+				{menu_item.map((item, index) => {
 					setActiveItem(item);
 					return (
 						<Tab
@@ -84,7 +44,7 @@ const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 							key={index}
 							background={!item.active && theme.palette.dark.secondary}
 							color={!item.active ? theme.palette.light.primary : undefined}
-							index={item.path ? (menu.length - index).toString() : '3'}
+							index={(menu_item.length - index).toString()}
 							borderColor={
 								item.active
 									? theme.palette.dark.secondary

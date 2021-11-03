@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.1.15",
+    "axios": "^0.24.0",
     "next": "12.0.1",
     "react": "17.0.2",
     "react-animate-on-scroll": "^2.1.5",
