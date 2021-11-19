@@ -6,6 +6,8 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="icon" href="/favicon.ico" />
+                    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+                    <link rel='manifest' href='/manifest.json' />
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
@@ -14,7 +16,7 @@ class MyDocument extends Document {
                     <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet" />
                     <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet" />
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-
+                    <meta name='theme-color' content='#F2EFE2' />
                 </Head>
                 <body>
                     <Main />

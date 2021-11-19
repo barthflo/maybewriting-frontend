@@ -6,28 +6,10 @@ import { ThemeProvider } from 'styled-components'
 import { theme } from '../styles/theme'
 import Script from 'next/script'
 import { fetchApi } from '../lib/api'
+import { ISettings } from '../@types/settings.types'
 
-export type MenuItem = {
-  id: number,
-  name: string,
-  path: string,
-  active?: boolean
-}
 
-export type Menu = {
-  id: number,
-  menu_item: MenuItem[]
-}
-
-export type Settings = {
-  google_analytics_key: string,
-  site_title: string,
-  site_subtitle: string,
-  quote: string,
-  menu: Menu
-}
-
-export const GlobalContext = createContext<Settings | null>(null)
+export const GlobalContext = createContext<ISettings | null>(null)
 
 export const useGlobal = () => {
   return useContext(GlobalContext)
@@ -35,7 +17,7 @@ export const useGlobal = () => {
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
 
-  const [settings, setSettings] = useState<Settings | undefined>()
+  const [settings, setSettings] = useState<ISettings | undefined>()
 
   const getSettings = useCallback(async () => {
     const response = await fetchApi('/settings')
@@ -72,16 +54,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </>
   )
 }
-
-
-// MyApp.getInitialProps = async (ctx: AppContext): Promise<AppProps> => {
-//   const appProps = await App.getInitialProps(ctx);
-//   const settings = await fetchApi('/settings')
-//   console.log(settings)
-//   return {
-//     ...appProps, pageProps: { settings }
-//   }
-// }
 
 export default MyApp
 

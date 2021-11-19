@@ -1,42 +1,8 @@
 import { useContext } from 'react'
 import {ThemeContext} from 'styled-components'
+import { ITheme} from '../@types/styles.types'
 
-export type Theme = {
-    palette : {
-        dark : {
-            primary : string,
-            secondary : string
-        },
-        light : {
-            primary : string
-            secondary : string
-        },
-    },
-    shadows : {
-        hard : {
-            right : string,
-            bottom:string
-        },
-        soft : {
-            bottomRight : string
-        }
-    },
-    text : {
-        siteTitle : string,
-        siteSubtitle : string,
-        menu:string,
-        headings : string,
-        text : string
-    },
-    breakpoints : {
-        sm : string,
-        md: string,
-        lg:string,
-        xlg: string
-    }
-}
-
-export const theme:Theme = {
+export const theme:ITheme = {
     palette : {
         dark : {
             primary : '#34312e',
@@ -50,10 +16,13 @@ export const theme:Theme = {
     shadows : {
         hard : {
             right : "7px -1px 1px 0px #00000040",
+            left: "-7px -1px 1px 0px #00000040",
             bottom: "0px 7px 1px 0px #00000040",
+            top: "0px -7px 1px 0px #00000040"
         },
         soft : {
-            bottomRight : ""
+            bottom : "0px 2px 1px 0px #00000040",
+            left: "-2px 0px 3px 0px #00000040"
         }
     },
     text : {
@@ -72,6 +41,6 @@ export const theme:Theme = {
 }
 
 export const useTheme = () => {
-    return useContext<Theme>(ThemeContext)
+    return useContext<ITheme>(ThemeContext)
 }
 

@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav';
-import { GiFeather } from 'react-icons/gi';
 import { useGlobal } from '../../pages/_app'
 
 const Header: React.FC = () => {
 	const [open, setOpen] = useState<boolean>(false)
-	const { site_title, site_subtitle } = useGlobal()
+	const { site_title, site_subtitle, logo } = useGlobal()
 	return (
 		<Container>
-			<div style={{ position: 'relative' }}>
-				<FeatherIcon size="4em" />
-				<h1>
+			<div style={{ position: 'relative', display: 'flex', alignItems: 'baseline' }}>
+				<Title>
 					{site_title.substring(0, 3)}<span>{site_title.substring(3, 5)}</span>{site_title.substring(5)}
-				</h1>
+				</Title>
+				<Logo src={logo.formats ? logo.formats.thumbnail.url : logo.url} alt={logo.alternativeText} />
 			</div>
 			<SubTitle>{site_subtitle}</SubTitle>
-			<BurgerContainer onClick={() => setOpen(!open)}>
+			<BurgerContainer onClick={() => setOpen(!open)} aria-label="menu">
 				<BurgerIcon open={open} />
 			</BurgerContainer>
-			<Nav open={open} />
+			<Nav open={open} setOpen={() => setOpen(false)} />
 		</Container>
 	);
 };
@@ -35,50 +34,50 @@ const Container = styled.header`
 	align-items: start;
 	background: #34312e;
 	color: #f2efe2;
-	padding: 20px;
-	line-height: 35px;
-	& h1 {
-		margin: 0;
-		font-family: ${(props) => props.theme.text.siteTitle};
-		font-weight: 400;
-		font-size: 40px;
-		& > span {
-			color: #de0606;
-		}
-	}
+	padding: 20px 15px 0;
 	z-index: 1000;
+	line-height: 33px;
+	box-shadow: ${props => props.theme.shadows.soft.bottom};
 	@media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+		height: 110px;
 		align-items: center;
-		& h1 {
-			font-size: 45px;
-		}
 	}
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
-		height: 178px;
-		align-items: center;
+		height: auto;
 		justify-content: space-evenly;
 		line-height: unset;
 		padding-bottom: 0;
-		& h1 {
-			font-size: 45px;
-		}
+		box-shadow: none;
 	}
 `;
-const FeatherIcon = styled(GiFeather)`
-	fill: ${(props) => props.theme.palette.light.primary};
-	position: absolute;
-	top: -19px;
-	right: -25px;
-	width: 2em;
+
+const Title = styled.span`
+	margin: 0;
+	font-family: ${(props) => props.theme.text.siteTitle};
+	font-weight: 400;
+	font-size: 35px;
+	& > span {
+		color: #de0606;
+	}
 	@media (min-width: ${(props) => props.theme.breakpoints.sm}) {
-		width: 3em;
-		top: -25px;
-		right: -38px;
+		font-size: 40px;
+	}
+	@media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+		font-size: 45px;
+	}
+`
+
+const Logo = styled.img`
+	position: relative;
+	left: -5px;
+	fill: ${(props) => props.theme.palette.light.primary};
+	width: 2em;
+	object-fit: fill;
+	@media (min-width: ${(props) => props.theme.breakpoints.sm}) {
+		width: 2.5em;
 	}
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
-		width: 3.5em;
-		top: -15px;
-		right: -45px;
+		width: 3.3em;
 	}
 `;
 
@@ -87,13 +86,15 @@ const SubTitle = styled.span`
 	margin-bottom: 6px;
 `;
 
-const BurgerContainer = styled.div`
+const BurgerContainer = styled.button`
 	position: fixed;
-	top: 40px;
-	right: 20px;
+	top: 30px;
+	right: 10px;
 	cursor: pointer;
 	height: 25px;
 	z-index: 1;
+	background: none;
+	border: none;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		display: none;
 	}

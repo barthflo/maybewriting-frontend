@@ -3,7 +3,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import { useGlobal } from './_app'
 
 const Home: React.FC = () => {
-  const { site_title } = useGlobal()
+  const { site_title, quote } = useGlobal()
 
   return (
     <>
@@ -13,7 +13,9 @@ const Home: React.FC = () => {
       </Head>
       <div style={{ color: "#82766B" }}>
         <ScrollAnimation animateIn="fadeInUp" animateOut="fadeOut" animateOnce>
-          <h1 style={{ marginBottom: 10, fontFamily: "Galada", fontSize: 50 }}>About this blog</h1>
+          <h1 style={{ marginBottom: 10, fontFamily: "Galada", fontSize: 40 }}>About this blog</h1>
+          <div dangerouslySetInnerHTML={{ __html: quote.content }} />
+          <div>{quote.author}</div>
           <p style={{ fontFamily: "Neuton", fontSize: 18, fontWeight: 100 }}>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus vel dolorum odio impedit? Vitae, nihil minima doloremque eveniet, quia in adipisci iure quos totam saepe, blanditiis sapiente aperiam reprehenderit! Voluptas? Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum placeat nisi suscipit, a tempora omnis ipsam deserunt nostrum adipisci cupiditate laudantium totam ad cum harum repudiandae laboriosam, amet nesciunt neque? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste tenetur explicabo delectus minus debitis quisquam obcaecati nam magni officia. Voluptas voluptatem quis officia consequatur eveniet explicabo incidunt itaque minus sunt. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi ea numquam ducimus ratione harum enim cum architecto maxime rerum. Fuga ipsa harum saepe. Dicta excepturi voluptas rerum quisquam dolores autem!
           </p>

@@ -4,38 +4,25 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useTheme } from '../../styles/theme';
-import { GiFeather } from 'react-icons/gi';
-import { useGlobal, MenuItem } from '../../pages/_app';
+import { useGlobal } from '../../pages/_app';
+import { IMenuItem } from '../../@types/settings.types'
 
 
-const Nav: React.FC<{ open: boolean }> = ({ open }) => {
-	const [showDropDown, setShowDropDown] = useState<boolean>(false);
+const Nav: React.FC<{ open: boolean, setOpen: () => void }> = ({ open, setOpen }) => {
 	const { asPath } = useRouter();
 	const theme = useTheme();
 	const { menu: { menu_item } } = useGlobal()
 
-	console.log(asPath)
-
-	const setActiveItem = (item: MenuItem): boolean => {
-		console.log(item)
+	const setActiveItem = (item: IMenuItem): boolean => {
 		if (asPath.includes(item.name) || asPath === item.path) {
 			return (item.active = true);
 		}
 		return (item.active = false);
 	};
 
-	useEffect(() => {
-		if (asPath.includes('critics')) {
-			setShowDropDown(true);
-		} else {
-			setShowDropDown(false);
-		}
-	}, [setShowDropDown, asPath]);
-
 	return (
 		<NavContainer open={open}>
-			<FeatherIcon color={theme.palette.light.primary} size="3em" />
-			<NavBar borderBottom={!showDropDown && '20px solid'}>
+			<NavBar borderBottom={'20px solid'}>
 				{menu_item.map((item, index) => {
 					setActiveItem(item);
 					return (
@@ -52,12 +39,11 @@ const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 							}
 							active={item.active}
 							hover={!item.active}
-							width="100%"
-							// onMouseEnter={() => !item.path && setShowDropDown(true)}
-							// onClick={() => !item.path && setShowDropDown(!showDropDown)}
+							width={'98%'}
+							onClick={setOpen}
 							grow
+							menu
 						>
-							{/* {item.path ? */}
 							<Link href={item.path} passHref>
 								<Label>{item.name}</Label>
 							</Link>
@@ -65,59 +51,26 @@ const Nav: React.FC<{ open: boolean }> = ({ open }) => {
 					);
 				})}
 			</NavBar>
-
-			{/* :
-                            <>
-                                <Label href="#">
-                                    {item.name}
-                                </Label>
-                                {item.submenu.length && showDropDown &&
-                                    <DropDown
-                                       borderBottom= {asPath.includes('critics') ? '20px solid #F2EFE2' : '5px solid #F2EFE2'}
-                                       opacity = { showDropDown ? "1" : "0"}
-                                       onMouseLeave={() => !asPath.includes('critics') && setShowDropDown(false)}
-                                   >
-                                       {item.submenu.map((item, index) => {
-                                           setActiveItem(item)
-                                           return(
-                                               <Tab
-                                                   as="li"
-                                                   key={index}
-                                                   grow
-                                                   background={!item.active && "#82766B"}
-                                                   color={!item.active ? "#F2EFE2" : undefined}
-                                                   borderColor={item.active ? "#82766B" : "#F2EFE2"}
-                                                   index={(dropDownItems.length - index).toString()}
-                                                   dropDownHover={!item.active}
-                                               >
-                                                   <Link href={item.path} passHref>
-                                                       <Label >{item.name}</Label>
-                                                   </Link>
-                                               </Tab>
-                                           )}
-                                       )}
-                                    </DropDown>
-                                   }
-                                </>
-                            }  */}
 		</NavContainer>
 	);
 };
 
 const NavContainer = styled.nav<{ open: boolean }>`
 	position: fixed;
-	top: 0;
+	top: 100px;
 	right: ${(props) => (props.open ? '0' : '-250px')};
 	transition: 0.5s ease-in-out;
-	width: 250px;
-	height: 100vh;
+	width: 170px;
+	height: calc(100vh - 100px);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
-	padding: 10px;
-	background: ${(props) => props.theme.palette.dark.primary};
-	overflow: scroll;
+	background : ${props => props.theme.palette.light.primary};
+	@media (min-width: ${props => props.theme.breakpoints.sm}){
+		height: calc(100vh - 110px);
+		top:110px;
+	}
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		overflow: unset;
 		height: unset;
@@ -133,8 +86,10 @@ const NavContainer = styled.nav<{ open: boolean }>`
 		width: ${(props) => props.theme.breakpoints.xlg};
 	}
 `;
-const FeatherIcon = styled(GiFeather)`
-	margin-bottom: 60px;
+const Logo = styled.img`
+	margin-top: 40px;
+	width: 40px;
+	height: 40px;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		display: none;
 	}
@@ -143,17 +98,17 @@ const FeatherIcon = styled(GiFeather)`
 const NavBar = styled.ul<{ borderBottom: string }>`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	align-items: start;
+	justify-content: center;
+	align-items: flex-end;
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
 	width: 100%;
-	height: 50%;
+	height: 100%;
 	@media (min-width: ${(props) => props.theme.breakpoints.md}) {
 		flex-direction: row;
-		align-items: flex-end;
 		border-bottom: ${(props) => props.borderBottom};
+		margin-bottom: unset;
 		height: unset;
 	} ;
 `;
