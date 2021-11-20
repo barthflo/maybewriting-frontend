@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 export const getStrapiUrl = (path:string = '') => {
-    return `${process.env.STRAPI_URL || 'http://localhost:1337'}${path}`
+    return `https://maybewriting-backend.herokuapp.com` + path
 }
 
 export const fetchApi = async (path : string) => {
